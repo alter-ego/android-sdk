@@ -34,6 +34,10 @@
                 <action android:name="com.sensorberg.android.PRESENT_ACTION" />
             </intent-filter>
         </receiver>
+
+        <service android:name="com.sensorberg.sdk.demo.HistoryService.HistoryService"
+            android:enabled="true"
+            android:exported="false"/>
         <!-- Do not use this in production. It´s only used so you can debug easier-->
 
         <service android:name="com.sensorberg.sdk.SensorbergService"

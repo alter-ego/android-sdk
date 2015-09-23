@@ -3,10 +3,9 @@ package com.sensorberg.sdk.demo;
 import android.app.Activity;
 import android.os.Bundle;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.sensorberg.sdk.resolver.Resolver;
-import com.sensorberg.sdk.scanner.Scanner;
+import com.sensorberg.sdk.action.Action;
+import com.sensorberg.sdk.demo.HistoryService.HistoryService;
 
 @SuppressWarnings("javadoc")
 public class DemoActivity extends Activity
@@ -18,7 +17,14 @@ public class DemoActivity extends Activity
 	{
 		super.onCreate(savedInstanceState);
         textView = new TextView(this);
-        textView.setText("this is a very basic example...");
+
+		StringBuilder builder = new StringBuilder("this is a very basic example...\n");
+		for (int i = 0; i < HistoryService.actions.size(); i++) {
+			Action action = HistoryService.actions.get(i);
+			builder.append(i).append(": ").append(action.getUuid().toString()).append("\n");
+		}
+		textView.setText(builder.toString());
+
 		setContentView(textView);
 	}
 

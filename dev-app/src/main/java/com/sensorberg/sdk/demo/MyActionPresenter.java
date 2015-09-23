@@ -12,6 +12,7 @@ import com.sensorberg.sdk.action.Action;
 import com.sensorberg.sdk.action.InAppAction;
 import com.sensorberg.sdk.action.UriMessageAction;
 import com.sensorberg.sdk.action.VisitWebsiteAction;
+import com.sensorberg.sdk.demo.HistoryService.HistoryService;
 import com.sensorberg.sdk.demo.demoOne.R;
 
 public class MyActionPresenter extends BroadcastReceiver {
@@ -32,6 +33,9 @@ public class MyActionPresenter extends BroadcastReceiver {
                 showNotification(context, action.getUuid().hashCode(), inAppAction.getSubject(), inAppAction.getBody(), inAppAction.getUri());
                 break;
         }
+
+        intent.setClass(context, HistoryService.class);
+        context.startService(intent);
     }
 
     public static void showNotification(Context context, int id, String title, String content, Uri uri) {

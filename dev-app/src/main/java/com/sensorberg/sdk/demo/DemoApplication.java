@@ -2,10 +2,8 @@ package com.sensorberg.sdk.demo;
 
 import android.app.AlertDialog;
 import android.app.Application;
-import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.hardware.TriggerEvent;
 import android.net.Uri;
 import android.util.Log;
 import android.widget.Toast;
@@ -16,9 +14,9 @@ import com.sensorberg.sdk.action.UriMessageAction;
 import com.sensorberg.sdk.action.VisitWebsiteAction;
 import com.sensorberg.sdk.bootstrapper.BackgroundDetector;
 import com.sensorberg.sdk.bootstrapper.SensorbergApplicationBootstrapper;
+import com.sensorberg.sdk.demo.HistoryService.HistoryService;
 import com.sensorberg.sdk.demo.demoOne.BuildConfig;
 import com.sensorberg.sdk.resolver.BeaconEvent;
-import com.sensorberg.sdk.scanner.ScanEventType;
 
 @SuppressWarnings("javadoc")
 public class DemoApplication extends Application
@@ -41,6 +39,8 @@ public class DemoApplication extends Application
 		super.onCreate();
         Log.d(TAG, "onCreate application");
 
+        HistoryService.restoreList(this);
+
         boot = new SensorbergApplicationBootstrapper(this, true){
             @Override
             public void presentBeaconEvent(BeaconEvent beaconEvent) {
@@ -60,7 +60,7 @@ public class DemoApplication extends Application
                         break;
                 }
 
-
+                HistoryService.addAction(beaconEvent.getAction(), getApplicationContext());
             }
         };
         boot.activateService("8961ee72ea4834053b376ad54007ea277cba4305db12188b74d104351ca8bf8a");
